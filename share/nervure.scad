@@ -1,7 +1,7 @@
 include <../lib/lib2.scad>
 
 
-nervure_clark_y(width=2);
+//nervure_clark_y(width=3);
 
 module nervure_clark_y(px=0,py=0,pz=0, rx=0,ry=0,rz=0, mx=0,my=0,mz=0, length=150, width=3, isAdhesion=true, isSameSideCut=false){
     translate([(px), (py), pz])
