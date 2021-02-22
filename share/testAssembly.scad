@@ -2,16 +2,17 @@ include <longeron.scad>
 include <nervure.scad>
 
 
-test_wing();
-//test_wing(0,165,0);
-//test_wing(0,330,0);
+wing_165mm(isSectionCentral= true);
+wing_165mm(0,165,0);
 
-module test_wing(px=0,py=0,pz=0, rx=0,ry=0,rz=0, mx=0,my=0,mz=0, length=200, isAdhesion=true,){
+wing_165mm(0,-165,0, my=1);
+
+module wing_165mm(px=0,py=0,pz=0, rx=0,ry=0,rz=0, mx=0,my=0,mz=0, length=200, isAdhesion=true, isSectionCentral=false){
     translate([(px), (py), pz])
     rotate([rx,ry,rz])
     mirror([mx,my,mz]){
-        longeron_new(0,0,0);
-        longeron_new(-30,0,0);
+        longeron_new(0,0,0, isSameSideCut=isSectionCentral);
+        longeron_new(-30,0,0,isSameSideCut=isSectionCentral);
         yCube(4,length,0.8,    -105,0,0.4);
         yCube(4,length,0.8,    44.5,0,1.4, 0,-35,0);
         nervure_clark_y(0,22,0, width=3);
