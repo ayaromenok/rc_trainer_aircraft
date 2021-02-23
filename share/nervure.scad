@@ -31,10 +31,10 @@ module nervure_clark_y(px=0,py=0,pz=0, rx=0,ry=0,rz=0, mx=0,my=0,mz=0, sx=1,sy=1
             }//union
             yCube(300,10,40, -30,0,-20);    //bottom cut 
             nervure_cut(38,0,1, 10, width*2);
-            nervure_cut(22,0,1, 18, width*2);
-            nervure_cut(0,0,1, 22, width*2);
-            nervure_cut(-23,0,1, 21, width*2);
-            nervure_cut(-43.5,0,1, 17, width*2);
+            nervure_cut(22,0,1, 17, width*2);
+            nervure_cut(0,0,1, 21, width*2);
+            nervure_cut(-23,0,1, 20, width*2);
+            nervure_cut(-43.5,0,1, 16, width*2);
             nervure_cut(-60,0,1, 13, width*2);
             nervure_cut(-73,0,1, 9, width*2);
             nervure_cut(-83,0,1, 6, width*2);            
