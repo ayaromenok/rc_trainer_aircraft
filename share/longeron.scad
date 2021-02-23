@@ -1,8 +1,8 @@
 include <../lib/lib2.scad>
 
 //longeron_old(length=200); //827mm
-//longeron_new(length=90, size=4, height=13.2, isSameSideCut=true);
-//longeron_new(20,0,0,    length=90, size=4, height=13.2, isSameSideCut=false);
+//longeron_new(length=110, size=4, height=13.2, isSameSideCut=true);
+//longeron_new(20,0,0,    length=90, size=3, height=13.2, isSameSideCut=false);
 
 module longeron_new(px=0,py=0,pz=0, rx=0,ry=0,rz=0, mx=0,my=0,mz=0, length=200, height=13.2, size=3, isAdhesion=true, isSameSideCut=false){
     translate([(px), (py), pz])
@@ -22,6 +22,7 @@ module longeron_new(px=0,py=0,pz=0, rx=0,ry=0,rz=0, mx=0,my=0,mz=0, length=200, 
                 yPoly(_p, szz=length,py=-length/2,pz=height,rx=-90);        
                 
                 yPoly(_p, szz=(_step+_spt),px=-1,py=(length/2),rx=90);
+                
                 yPoly(_p, szz=(_step+_spt),px=-1,py=(length/2-_step-_spt), pz=height,rx=-90);
                 if (isSameSideCut){
                     yPoly(_p, szz=(_step+_spt),px=-1,py=(-length/2+_step+_spt),rx=90);
@@ -32,8 +33,14 @@ module longeron_new(px=0,py=0,pz=0, rx=0,ry=0,rz=0, mx=0,my=0,mz=0, length=200, 
                 }//if isSameSideCut
                 //supports
                 for (i=[(-length/2):_step:(length/2)]){
-                    yCyl(_spt/2,height,    0,(i+_spt/2),(height/2), sx=(size/_spt*0.8),$fn=4);            
+                    yCyl(_spt/2,height,    0,(i+_spt/2),(height/2), sx=(size/_spt*0.8),$fn=6); 
                 }//for
+                yCyl(_spt/2,height,    -1,(length/2-_spt/2),(height/2), sx=(size/_spt*0.8),$fn=6);
+                if (isSameSideCut){
+                    yCyl(_spt/2,height,    -1,(-length/2+_spt/2),(height/2), sx=(size/_spt*0.8),$fn=6);
+                } else {
+                    yCyl(_spt/2,height,    1,(-length/2+_spt/2),(height/2), sx=(size/_spt*0.8),$fn=6);
+                }                
             }//union
             //side cuts
             
