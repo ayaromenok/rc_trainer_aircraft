@@ -47,8 +47,8 @@ module longeron_new(px=0,py=0,pz=0, rx=0,ry=0,rz=0, mx=0,my=0,mz=0, length=200, 
         }//difference
             
         if (isAdhesion){
-            yCube(10,10,0.4,    0,(length/2-5),0.25);
-            yCube(10,10,0.4,    0,(-length/2+5),0.25);
+            yCube(10,10,0.4,    0,(length/2-5),0.2);
+            yCube(10,10,0.4,    0,(-length/2+5),0.2);
         }// if isAdhesion
         
     }//transform
