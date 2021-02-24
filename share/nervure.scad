@@ -1,14 +1,28 @@
 include <../lib/lib2.scad>
 
 
-//nervure_clark_y_aeliron(0,-10,0);
-//nervure_clark_y(0,10,0);
+//nervure_clark_y(0,-10,0);
+//nervure_clark_y_aeliron_support(0,0,0);
+//nervure_clark_y_aeliron(0,10,0);
+
 module nervure_clark_y_aeliron(px=0,py=0,pz=0, rx=0,ry=0,rz=0, mx=0,my=0,mz=0, sx=1,sy=1,sz=1, width=3){
     difference(){
         nervure_clark_y(px,py,pz,rx,ry,rz,mx,my,mz,sx,sy,sz,width);
-        yCube(70,width*3,20, -74.5+px,0+py,9.5+pz, rx,rz,rz);
-    }
-}
+        yCube(120,width*3,20, 16+px,0+py,9.5+pz, rx,ry,rz);
+    }//transform
+    yTube(5.5,3,width,    -44+px,py,5.5+pz,    90+rx,0+ry,0+rz);
+    
+}//module 
+
+module nervure_clark_y_aeliron_support(px=0,py=0,pz=0, rx=0,ry=0,rz=0, mx=0,my=0,mz=0, sx=1,sy=1,sz=1, width=3){
+    difference(){
+        nervure_clark_y(px,py,pz,rx,ry,rz,mx,my,mz,sx,sy,sz,width);
+        yCube(70,width*3,20, -74.5+px,0+py,9.5+pz, rx,ry,rz);
+        yCube(10,width*3,10, -40.5+px,0+py,pz, rx,ry,rz);
+    }//transform
+    
+}//module 
+
 module nervure_clark_y(px=0,py=0,pz=0, rx=0,ry=0,rz=0, mx=0,my=0,mz=0, sx=1,sy=1,sz=1, width=3){
     translate([(px), (py), pz])
     rotate([rx,ry,rz])
@@ -40,7 +54,7 @@ module nervure_clark_y(px=0,py=0,pz=0, rx=0,ry=0,rz=0, mx=0,my=0,mz=0, sx=1,sy=1
             nervure_cut(-83,0,1, 6, width*2);            
         }//difference
         //make bottom part more strong
-        yCube(135,0.85,0.8, -24,0,1.2);
+        yCube(135,0.85,0.8, -24,0,1.5);
     }//transform
 }//module    
 
