@@ -10,7 +10,7 @@ module nervure_clark_y_aeliron(px=0,py=0,pz=0, rx=0,ry=0,rz=0, mx=0,my=0,mz=0, s
         nervure_clark_y(px,py,pz,rx,ry,rz,mx,my,mz,sx,sy,sz,width);
         yCube(120,width*3,20, 16+px,0+py,9.5+pz, rx,ry,rz);
     }//transform
-    yTube(5.5,3,width,    -44+px,py,5.5+pz,    90+rx,0+ry,0+rz);
+    yTube(5.5,1.5,width,    -44+px,py,5.5+pz,    90+rx,0+ry,0+rz);
     
 }//module 
 
@@ -46,8 +46,9 @@ module nervure_clark_y(px=0,py=0,pz=0, rx=0,ry=0,rz=0, mx=0,my=0,mz=0, sx=1,sy=1
             yCube(300,10,40, -30,0,-20);    //bottom cut 
             nervure_cut(38,0,1, 10, width*2);
             nervure_cut(22,0,1, 17, width*2);
-            nervure_cut(0,0,1, 21, width*2);
-            nervure_cut(-23,0,1, 20, width*2);
+            nervure_cut(5,0,1, 21, width*2, sx=0.6);
+            nervure_cut(-10.2,0,1, 21, width*2, sx=0.6);
+            nervure_cut(-26.2,0,1, 20, width*2, sx=0.7);
             nervure_cut(-43.5,0,1, 16, width*2);
             nervure_cut(-60,0,1, 13, width*2);
             nervure_cut(-73,0,1, 9, width*2);
@@ -58,8 +59,9 @@ module nervure_clark_y(px=0,py=0,pz=0, rx=0,ry=0,rz=0, mx=0,my=0,mz=0, sx=1,sy=1
     }//transform
 }//module    
 
-module nervure_cut(px=0,py=0,pz=0, s=10, width=10){
-    translate([(px), (py), pz]){
+module nervure_cut(px=0,py=0,pz=0, s=10, width=10, sx=1,sy=1,sz=1){
+    translate([(px), (py), pz])
+    scale([sx,sy,sz]){
         s_2=s/2;
         s_4=s/4;
         _p=[[s_2,0],[s_2,s_4],[s_4,s_2],[-s_4,s_2], [-s_2,s_4],[-s_2,0]];
