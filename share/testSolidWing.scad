@@ -3,7 +3,7 @@ include <../lib/lib2.scad>
 //wing_section_200x150mm_straight();        //L
 
 solid_wing();
-module solid_wing(px=0,py=0,pz=0, rx=0,ry=0,rz=0, sx=1,sy=1,sz=1, length=50){
+module solid_wing(px=0,py=0,pz=0, rx=0,ry=0,rz=0, sx=1,sy=1,sz=1, length=50, isAdhesion=true){
     translate([(px), (py), pz])
     rotate([rx,ry,rz])
     scale([sx,sy,sz]){
@@ -21,9 +21,17 @@ module solid_wing(px=0,py=0,pz=0, rx=0,ry=0,rz=0, sx=1,sy=1,sz=1, length=50){
                     import(file = "dxf/profile_clark_y.dxf", layer="clark_y_main");
             }//difference
         }//linear_extrude
+        yCube(0.45,12,length,   -20,6.1,0);
+        yCube(0.45,12,length,   20,6.1,0);
         solid_wing_nervure(0,0,24);        
-        yCyl(2,length,   0,12.3,0, 0,0,30,$fn=3);
-        yCyl(2,length,   0,1,0, 0,0,90,$fn=3);
+        solid_wing_nervure(0,0,0);        
+        ///yCyl(2,length,   0,12.3,0, 0,0,30,$fn=3);
+        //yCyl(2,length,   0,1,0, 0,0,90,$fn=3);
+        
+        if(isAdhesion){
+            yCube(20,20,0.45,   -54,2,-length/2+0.225);
+            yCube(20,20,0.45,   102,0,-length/2+0.225);
+        }//if(isAdhesion)
     }//transform
 }//module
 
