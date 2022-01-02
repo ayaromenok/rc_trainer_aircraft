@@ -1,41 +1,63 @@
 include <../lib/lib2.scad>
 
 //solid_wing();
-solid_trapezoid_wing();
+solid_trapezoid_wing(isAdhesion=false);
 
 module solid_trapezoid_wing(px=0,py=0,pz=0, rx=0,ry=0,rz=0, sx=1,sy=1,sz=1, length=100, isAdhesion=true){
     translate([(px), (py), pz])
     rotate([rx,ry,rz])
     scale([sx,sy,sz]){
-        _off=0.59;
-        translate([-50,0,-length/2+0.225])
-        linear_extrude(height = 0.45, center = true, convexity = 10)
-            import(file = "dxf/profile_clark_y.dxf", layer="clark_y_main");                
+        _off=0.6;
+        difference(){
+            union(){
+                //bottom holecap
+                translate([-50,0,-length/2+0.225])
+                linear_extrude(height = 0.45, center = true, convexity = 10)
+                    import(file = "dxf/profile_clark_y.dxf", layer="clark_y_main");                
+                //top holecap
+                translate([-35,0,length/2+0.225])
+                scale([0.7,0.7,1])
+                linear_extrude(height = 0.45, center = true, convexity = 10)
+                    import(file = "dxf/profile_clark_y.dxf", layer="clark_y_main");                        
         
-        linear_extrude(height = length, center = true, convexity = 10, scale=0.7){
-            translate([-50,0,0])
-            difference(){
-                import(file = "dxf/profile_clark_y.dxf", layer="clark_y_main");
-                
-                offset(-_off)
-                    import(file = "dxf/profile_clark_y.dxf", layer="clark_y_main");
-            }//difference
-        }//linear_extrude
-        
-        yPoly(p=[[0,0],[12.4,0],[8,length],[0,length]], szz=0.45, px=-20,py=0,pz=-length/2, rx=90,rz=90);
-        yPoly(p=[[0,0],[12.4,0],[8,length],[0,length]], szz=0.45, px=20,py=0,pz=-length/2, rx=90,rz=90);
+                //wing side
+                linear_extrude(height = length, center = true, convexity = 10, scale=0.7){
+                translate([-50,0,0])
+                difference(){
+                    import(file = "dxf/profile_clark_y.dxf", layer="clark_y_main");                
+                    offset(-_off)
+                        import(file = "dxf/profile_clark_y.dxf", layer="clark_y_main");
+                    }//difference
+                }//linear_extrude
+            yCyl(4.75,length,    0,4.75,0);
+            }//union
+            yCyl(4.25,length*1.2,    0,4.75,0);
+        }//difference
+        //yPoly(p=[[0,0],[12.4,0],[8,length],[0,length]], szz=0.45, px=-20,py=0,pz=-length/2, rx=90,rz=90);
+        //yPoly(p=[[0,0],[12.4,0],[8,length],[0,length]], szz=0.45, px=20,py=0,pz=-length/2, rx=90,rz=90);
         
         solid_wing_nervure(0,0,-24,  sx=0.92,sy=0.92);
         solid_wing_nervure(0,0,0,  sx=0.84,sy=0.84);        
         solid_wing_nervure(0,0,24,  sx=0.77,sy=0.77);
-        solid_wing_nervure(0,0,49,  sx=0.7,sy=0.7);
+        //solid_wing_nervure(0,0,49,  sx=0.7,sy=0.7);
         ///yCyl(2,length,   0,12.3,0, 0,0,30,$fn=3);
         //yCyl(2,length,   0,1,0, 0,0,90,$fn=3);
         
         if(isAdhesion){
-            yCube(20,20,0.45,   -54,2,-length/2+0.225);
-            yCube(20,20,0.45,   102,0,-length/2+0.225);
+            yCube(20,30,0.45,   -54,2,-length/2+0.225);
+            yCube(20,30,0.45,   102,2,-length/2+0.225);
+            yCube(176,2,1,  24,16,-length/2+0.5);
+            yCube(176,2,1,  24,-12,-length/2+0.5);
+            //
+            yCube(2,30,1,  110,2,-length/2+0.5);
+            yCube(2,30,1,  90,2,-length/2+0.5);
+            yCube(2,30,0.45,  10,2,-length/2+0.225);
+            
+            yCube(2,30,1,  -65,2,-length/2+0.5);
+            yCube(2,30,1,  -45,2,-length/2+0.5);
         }//if(isAdhesion)
+        
+        
     }//transform
 }//module
 
